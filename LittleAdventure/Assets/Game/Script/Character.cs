@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
     private Vector3 _movementeVelocity;
     private PlayerInput _playerInput;
     private float _verticalVelocity;
+    private Animator _animator;
 
     public float MoveSpeed = 5f;
     public float Gravity = -9.8f;
@@ -16,6 +17,7 @@ public class Character : MonoBehaviour
         
         _cc = GetComponent<CharacterController>();
         _playerInput = GetComponent<PlayerInput>();
+        _animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate() {
@@ -41,7 +43,10 @@ public class Character : MonoBehaviour
         _movementeVelocity.Set( _playerInput.HorizontalInput, 0f, _playerInput.VerticalInput );
         _movementeVelocity.Normalize();
         _movementeVelocity = Quaternion.Euler( 0, -45f, 0 ) * _movementeVelocity;
+
+        _animator.SetFloat( "Speed", _movementeVelocity.magnitude );
         _movementeVelocity *= MoveSpeed * Time.deltaTime;
+
 
         if( _movementeVelocity != Vector3.zero ){
 
