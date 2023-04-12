@@ -52,5 +52,7 @@ public class Character : MonoBehaviour
 
             transform.rotation = Quaternion.LookRotation( _movementeVelocity );
         }
+
+        _animator.SetBool("AirBorne", !_cc.isGrounded);
     }
 }
