@@ -19,6 +19,13 @@ public class Character : MonoBehaviour
     private UnityEngine.AI.NavMeshAgent _navMeshAgent;
     private Transform _targetPlayer;
 
+    //State Machine
+
+    public enum CharacterState{
+        Normal, Attacking
+    }
+    public CharacterState CurrentState;
+
     private void Awake() {
         
         _cc = GetComponent<CharacterController>();
@@ -38,20 +45,21 @@ public class Character : MonoBehaviour
 
     private void FixedUpdate() {
         
-        if( IsPlayer ){
-            
-            CalculatePlayerMovement();
-            IsGround();
-        }
-        else{
-            CalculateEnemyMovement();
-        }
+        State();
 
     }
 
     #region MyMetods
 
     private void CalculatePlayerMovement(){
+
+        // IsAtack
+        if( _playerInput.MouseButtonDown && _cc.isGrounded ){
+
+            SwtichStateTo( CharacterState.Attacking );
+            return;
+        }
+        // ----------------------------
 
         _movementeVelocity.Set( _playerInput.HorizontalInput, 0f, _playerInput.VerticalInput );
         _movementeVelocity.Normalize();
@@ -97,6 +105,63 @@ public class Character : MonoBehaviour
         _movementeVelocity += _verticalVelocity * Vector3.up * Time.deltaTime;
 
         _cc.Move( _movementeVelocity );
+    }
+
+    private void SwtichStateTo( CharacterState newState){
+
+        //Clear input cache
+        _playerInput.MouseButtonDown = false;
+
+        //Exiting state
+        switch( CurrentState ){
+
+            case CharacterState.Normal:
+
+
+                break;
+            case CharacterState.Attacking:
+
+
+                break;
+        }
+
+        //Entering state
+        switch( newState ){
+
+            case CharacterState.Normal:
+
+                
+                break;
+            case CharacterState.Attacking:
+
+
+                break;
+        }
+
+        CurrentState = newState;
+    }
+
+    private void State(){
+
+        switch( CurrentState ){
+
+            case CharacterState.Normal:
+
+                if( IsPlayer ){
+                
+                    CalculatePlayerMovement();
+                    IsGround();
+                }
+                else{
+
+                    CalculateEnemyMovement();
+                }
+                break;
+
+            case CharacterState.Attacking:
+
+                break;
+        }
     }
 
     #endregion
