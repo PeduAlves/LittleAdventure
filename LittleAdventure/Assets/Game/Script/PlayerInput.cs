@@ -6,8 +6,14 @@ public class PlayerInput : MonoBehaviour
 {
     public float HorizontalInput;
     public float VerticalInput;
+    public bool MouseButtonDown;
 
     void Update(){
+
+        if( !MouseButtonDown && Time.deltaTime != 0){
+
+            MouseButtonDown = Input.GetMouseButtonDown(0);
+        }
 
         HorizontalInput = Input.GetAxisRaw("Horizontal");
         VerticalInput = Input.GetAxisRaw("Vertical");
@@ -15,6 +21,7 @@ public class PlayerInput : MonoBehaviour
 
     private void OnDisable() {
         
+        MouseButtonDown = false;
         HorizontalInput = 0;
         VerticalInput = 0;
     }
