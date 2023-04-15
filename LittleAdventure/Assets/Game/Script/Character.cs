@@ -51,6 +51,11 @@ public class Character : MonoBehaviour
 
     #region MyMetods
 
+    private void AttackAnimationEnds(){
+
+        SwtichStateTo( CharacterState.Normal );
+    }
+
     private void CalculatePlayerMovement(){
 
         // IsAtack
@@ -134,7 +139,7 @@ public class Character : MonoBehaviour
                 break;
             case CharacterState.Attacking:
 
-
+                _animator.SetTrigger("Attack");
                 break;
         }
 
