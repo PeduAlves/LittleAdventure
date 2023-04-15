@@ -63,11 +63,12 @@ public class Character : MonoBehaviour
 
     private void CalculatePlayerMovement(){
 
+        IsGround();
+
         // IsAtack
         if( _playerInput.MouseButtonDown && _cc.isGrounded ){
 
             SwtichStateTo( CharacterState.Attacking );
-            return;
         }
         // ----------------------------
 
@@ -123,6 +124,7 @@ public class Character : MonoBehaviour
         _playerInput.MouseButtonDown = false;
 
         //Exiting state
+
         switch( CurrentState ){
 
             case CharacterState.Normal:
@@ -134,6 +136,7 @@ public class Character : MonoBehaviour
 
                 break;
         }
+    
 
         //Entering state
         switch( newState ){
@@ -149,11 +152,13 @@ public class Character : MonoBehaviour
                 if( IsPlayer ){
 
                     attackStartTime = Time.time;
+                    _movementeVelocity = Vector3.zero;
                 }
                 break;
         }
 
         CurrentState = newState;
+        State();
     }
 
     private void State(){
@@ -165,7 +170,6 @@ public class Character : MonoBehaviour
                 if( IsPlayer ){
                 
                     CalculatePlayerMovement();
-                    IsGround();
                 }
                 else{
 
@@ -176,11 +180,11 @@ public class Character : MonoBehaviour
             case CharacterState.Attacking:
 
                 if( IsPlayer ){
-
-                    _movementeVelocity = Vector3.zero;
-
+                                        
+                    CalculatePlayerMovement();
+                                        
                     if( Time.time < attackStartTime + AttackSlideDuration){
-
+        
                         float timePassed = Time.time -  attackStartTime;
                         float lerpTime = timePassed / AttackSlideDuration;
                         _movementeVelocity = Vector3.Lerp( transform.forward * AttackSlideSpeed, Vector3.zero, lerpTime );
