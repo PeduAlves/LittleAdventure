@@ -5,7 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     private CharacterController _cc;
-    private Vector3 _movementeVelocity;
+    private Vector3 _movementVelocity;
     private PlayerInput _playerInput;
     private float _verticalVelocity;
     private Animator _animator;
@@ -72,17 +72,17 @@ public class Character : MonoBehaviour
         }
         // ----------------------------
 
-        _movementeVelocity.Set( _playerInput.HorizontalInput, 0f, _playerInput.VerticalInput );
-        _movementeVelocity.Normalize();
-        _movementeVelocity = Quaternion.Euler( 0, -45f, 0 ) * _movementeVelocity;
+        _movementVelocity.Set( _playerInput.HorizontalInput, 0f, _playerInput.VerticalInput );
+        _movementVelocity.Normalize();
+        _movementVelocity = Quaternion.Euler( 0, -45f, 0 ) * _movementVelocity;
 
-        _animator.SetFloat( "Speed", _movementeVelocity.magnitude );
-        _movementeVelocity *= MoveSpeed * Time.deltaTime;
+        _animator.SetFloat( "Speed", _movementVelocity.magnitude );
+        _movementVelocity *= MoveSpeed * Time.deltaTime;
 
 
-        if( _movementeVelocity != Vector3.zero ){
+        if( _movementVelocity != Vector3.zero ){
 
-            transform.rotation = Quaternion.LookRotation( _movementeVelocity );
+            transform.rotation = Quaternion.LookRotation( _movementVelocity );
         }
 
         _animator.SetBool("AirBorne", !_cc.isGrounded);
@@ -113,9 +113,9 @@ public class Character : MonoBehaviour
            _verticalVelocity = Gravity * 0.3f;
         }
 
-        _movementeVelocity += _verticalVelocity * Vector3.up * Time.deltaTime;
+        _movementVelocity += _verticalVelocity * Vector3.up * Time.deltaTime;
 
-        _cc.Move( _movementeVelocity );
+        _cc.Move( _movementVelocity );
     }
 
     private void SwtichStateTo( CharacterState newState){
@@ -152,7 +152,7 @@ public class Character : MonoBehaviour
                 if( IsPlayer ){
 
                     attackStartTime = Time.time;
-                    _movementeVelocity = Vector3.zero;
+                    _movementVelocity = Vector3.zero;
                 }
                 break;
         }
@@ -187,7 +187,7 @@ public class Character : MonoBehaviour
         
                         float timePassed = Time.time -  attackStartTime;
                         float lerpTime = timePassed / AttackSlideDuration;
-                        _movementeVelocity = Vector3.Lerp( transform.forward * AttackSlideSpeed, Vector3.zero, lerpTime );
+                        _movementVelocity = Vector3.Lerp( transform.forward * AttackSlideSpeed, Vector3.zero, lerpTime );
                     }
                 }
                 break;

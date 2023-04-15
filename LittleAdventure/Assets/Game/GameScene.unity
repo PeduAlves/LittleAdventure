@@ -1912,6 +1912,8 @@ MonoBehaviour:
   Gravity: -20
   IsPlayer: 1
   CurrentState: 0
+  AttackSlideDuration: 0.01
+  AttackSlideSpeed: 0.5
 --- !u!143 &795543310
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2244,6 +2246,8 @@ MonoBehaviour:
   Gravity: -9.8
   IsPlayer: 0
   CurrentState: 0
+  AttackSlideDuration: 0.1
+  AttackSlideSpeed: 0.5
 --- !u!114 &1229668176
 MonoBehaviour:
   m_ObjectHideFlags: 0
