@@ -118,7 +118,7 @@ public class Character : MonoBehaviour
         _cc.Move( _movementVelocity );
     }
 
-    private void SwtichStateTo( CharacterState newState){
+    public void SwtichStateTo( CharacterState newState){
 
         //Clear input cache
         _playerInput.MouseButtonDown = false;
@@ -158,7 +158,6 @@ public class Character : MonoBehaviour
         }
 
         CurrentState = newState;
-        State();
     }
 
     private void State(){
@@ -180,9 +179,7 @@ public class Character : MonoBehaviour
             case CharacterState.Attacking:
 
                 if( IsPlayer ){
-                                        
-                    CalculatePlayerMovement();
-                                        
+                                                                                            
                     if( Time.time < attackStartTime + AttackSlideDuration){
         
                         float timePassed = Time.time -  attackStartTime;
@@ -196,3 +193,5 @@ public class Character : MonoBehaviour
 
     #endregion
 }
+
+

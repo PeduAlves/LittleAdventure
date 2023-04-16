@@ -1912,7 +1912,7 @@ MonoBehaviour:
   Gravity: -20
   IsPlayer: 1
   CurrentState: 0
-  AttackSlideDuration: 0.01
+  AttackSlideDuration: 0.91
   AttackSlideSpeed: 0.5
 --- !u!143 &795543310
 CharacterController:
@@ -1967,6 +1967,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FootStep: {fileID: 309709745}
   Blade01: {fileID: 9121905913345362532}
+  SecondsToWait: 0.9
 --- !u!114 &827574949
 MonoBehaviour:
   m_ObjectHideFlags: 0
